@@ -1,8 +1,8 @@
 # Task 1
 # Напишіть функцію, яка застосує до списку чисел довільну функцію користувача і поверне суми елементів отриманого списку.
 
-def apply_function_and_sum(numbers, custom_function):
-    result_sum = sum(custom_function(number) for number in numbers)
+def apply_function_and_sum(numbers, function):
+    result_sum = sum(function(number) for number in numbers)
     return result_sum
 
 def double_function(x):
@@ -47,7 +47,7 @@ print(f'Result of the second call: {result2}')
 
 import time
 
-def measure_time(func):
+def timeit(func):
     def wrapper(*args, **kwargs):
         start_time = time.time()
         result = func(*args, **kwargs)
@@ -57,7 +57,7 @@ def measure_time(func):
         return result
     return wrapper
 
-@measure_time
+@timeit
 def some_function():
     time.sleep(2)
 
@@ -69,7 +69,7 @@ some_function()
 import functools
 
 def limit_calls(max_calls):
-    def decorator(func):
+    def decorator(func): 
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             key = (args, frozenset(kwargs.items()))

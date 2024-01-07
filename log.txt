@@ -1,0 +1,9 @@
+2024-01-07 15:09:13,228 - __main__ - INFO - Discount created: 10%
+2024-01-07 15:09:13,229 - __main__ - INFO - Client "John" created with discount: 10%
+2024-01-07 15:09:13,230 - __main__ - INFO - Discount created: 15%
+2024-01-07 15:09:13,231 - __main__ - INFO - Client "Alice" created with discount: 15%
+2024-01-07 15:09:13,233 - __main__ - INFO - Discount created: 20%
+2024-01-07 15:09:13,235 - __main__ - INFO - Client "Bob" created with discount: 20%
+2024-01-07 15:09:13,236 - __main__ - INFO - Total price calculated for John: 40.5
+2024-01-07 15:09:13,236 - __main__ - INFO - Total price calculated for Alice: 38.25
+2024-01-07 15:09:13,237 - __main__ - INFO - Total price calculated for Bob: 36.0
