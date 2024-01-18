@@ -1,11 +1,3 @@
-# Task 1 (7)
-# Попередній проєкт (Замовлення продуктів в магазині) доповнити можливістю підтримки ітераційного протоколу.
-
-# Task 2 (7)
-# Попередній проєкт (Меню Ресторану) доповнити можливістю підтримки ітераційного протоколу та протоколу 
-# послідовності.
-
-
 # Task 2.1 / 6.1 / 7.1
 
 class Product:
@@ -49,11 +41,21 @@ class Cart:
 
         return self
 
+    def __iter__(self):
+        self._iter_items = iter(self.products.values())
+        return self
+
+    def __next__(self):
+        try:
+            item = next(self._iter_items)
+            return f'{item["product"]} x{item["quantity"]}'
+        except StopIteration:
+            raise StopIteration
+
     def __str__(self):
         cart_str = f'Shopping Cart for {self.customer}:\n'
-        for item in self.products.values():
-            cart_str += f'{item["product"]} x{item["quantity"]}\n'
-        cart_str += f'Total: ${self.calculate_total():.2f}'
+        cart_str += '\n'.join(self)
+        cart_str += f'\nTotal: ${self.calculate_total():.2f}'
         return cart_str
 
 product_1 = Product('Sofa', 599.99, 'Comfortable and stylish sofa for your living room')
@@ -89,8 +91,7 @@ class MenuCategory:
 
     def __str__(self):
         category_str = f'{self.name}:\n'
-        for dish in self.dishes:
-            category_str += f'{dish}\n'
+        category_str += '\n'.join(map(str, self.dishes))
         return category_str
 
 class RestaurantMenu:
@@ -117,6 +118,21 @@ class Order:
     def calculate_total(self):
         total = sum(item.price for item in self.items)
         return total
+    
+    def __iter__(self):
+        self._iter_index = 0
+        return self
+
+    def __next__(self):
+        if self._iter_index < len(self.items):
+            item = self.items[self._iter_index]
+            self._iter_index += 1
+            return item
+        else:
+            raise StopIteration
+
+    def __getitem__(self, index):
+        return self.items[index]
 
     def __str__(self):
         order_str = 'Order:\n'
@@ -142,15 +158,15 @@ order = Order()
 order += dish_1
 order += dish_2
 
-print(order)
+print(order[0])
 
 # Task 6.3
 
-from math import gcd
+import math
 
 class ProperFraction:
     def __init__(self, numerator, denominator):
-        common_divisor = gcd(numerator, denominator)
+        common_divisor = math.gcd(numerator, denominator)
         self.numerator = numerator // common_divisor
         self.denominator = denominator // common_divisor
 
